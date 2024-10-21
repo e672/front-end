@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->  
+  <title>cardExample</title>
+</head>
+<body>
+  <style>
+    /*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/*
+  8. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+    :root {
+      --font-base:"montserrat";
+      --font-alternative:"Fraunces";
+      --primary-color-dark:hsl(158, 36%, 37%);
+      --primary-color-cyan:hsl(30, 38%, 92%);
+      --default-font-size:16px;
+
+      --natural-dark-blue:hsl(212, 21%, 14%);
+      --natural-grayish-blue:hsl(228, 12%, 48%);
+      --natural-white:hsl(0, 0%, 100%);
+      --fw-ragular:500;
+      --fw-bold:700;
+      --grey-color:#6a6a6a;
+    }
+    @font-face{
+      font-family:"montserrat";
+      src:url(/fonts/Montserrat/static/Montserrat-Medium.ttf);
+      font-display: swap;
+      font-weight:500 700;
+    }
+    @font-face{
+      font-family:"fraunces";
+      src:url(/fonts/Fraunces/static/Fraunces_144pt-Bold.ttf);
+      font-display: swap;
+      font-weight: 700;
+    }
+    body {
+      font-size:16px;
+      font-family: var(--font-base);
+      font-weight: var(--fw-ragular);
+      color: var(--grey-color);
+      background-color: var(--primary-color-cyan);
+      min-height:100dvh;
+      display: grid;
+      place-content:center;
+      margin:2rem;
+    }
+   .main-section {
+      --padding-body:2rem;
+      background-color: var(--natural-white);
+      border-radius: 2rem;
+      overflow: hidden;
+      display: grid;
+      max-width: 48rem;
+   }
+   img {
+    
+   }
+   @media(min-width: 600px){
+    .main-section {
+      grid-template-columns: 1fr 1fr;
+    }
+   }
+   .card-body-section {
+    padding:var(--padding-body);
+    display: grid;
+    gap: 1.5rem;
+   }
+   .header1 {
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+   }
+   .header2 {
+    font-family: var(--font-alternative);
+    font-size: 3rem;
+    color: var(--natural-dark-blue);
+    letter-spacing: 1px;
+    line-height: 1;
+   }
+   .price-section {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+   }
+   .discount {
+    color: var(--primary-color-dark);
+    font-size: 2.5rem;
+    font-family: var(--font-alternative);
+    font-weight: var(--fw-bold);
+   }
+   .expired {
+    margin-inline: auto;
+    text-decoration: line-through;
+   }
+   button{
+    border:0;
+    background-color: var(--primary-color-dark);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    color: var(--natural-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:0.5rem;
+   }
+   button[data-icon="cart"]::before {
+    content:"";
+    background-image: url(images/icon-cart.svg);
+    width: 15px;
+    height: 16px;
+   }
+  </style>
+  <main>
+    <div class="main-section">
+      <picture class="img-section">
+        <source srcset="/images/image-product-desktop.jpg" media="(min-width:600px)">
+        <img src="/images/image-product-mobile.jpg" alt="card_image">
+      </picture>
+      <div class="card-body-section">
+        <p class="header1">parfume</p>
+        <h1 class="header2">Gabrielle Essence Eau De Parfum</h1>
+        <p class="card-text">A floral, solar and voluptuous interpretation composed by Olivier Polge, 
+          Perfumer-Creator for the House of CHANEL.</p>
+        <div class="price-section">
+          <p class="discount">$149.99</p>
+          <p class="expired">$169.99</p>
+        </div>
+        <button data-icon="cart" type="button">Add to Cart</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

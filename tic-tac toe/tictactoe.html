@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tictactoe</title>
+        <meta name="description" content="tictactoe">
+        <meta name="keyword" content="html,css,javascript">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            let lastObject="o";
+            let oto=[];
+            let table=[["","",""],["","",""],["","",""]];
+            let delay=2000;
+            placeItems=(id,name)=>{
+                document.getElementById(id).innerHTML=lastObject;
+                if(lastObject=="o"){
+                    //getting the location
+                    let node=document.getElementById(id);
+                    lastObject="x";
+                    let row=node.parentNode.getAttribute("class");//parents class value is our row
+                    let col=node.getAttribute("name");// val col is our column
+                    table[row.toString()][col.toString()]="o";
+                }
+                else{
+                    lastObject="o"
+                    let node=document.getElementById(id);
+
+                    let row=node.parentNode.getAttribute("class");//parents class value is our row
+                    let col=node.getAttribute("name");// val col is our column
+                    table[row][col]="x";
+                } 
+                check(table,"x")//checking if there is a score on table
+                check(table,"o")
+                
+            }   
+            check=(arr,target)=>{
+                for(let i=0;i<arr.length;i++){
+                    if(arr[i][0]==target&&arr[i][1]==target&&arr[i][2]==target){
+                        console.log("score for: ",target,"in row: ",i)
+                        createCongrats()
+                        for(let element of document.getElementsByClassName(i)){
+                            element.firstElementChild.style.backgroundColor='#ff7518';
+                        }
+                    }
+                }
+                if(arr[0][0]==target&&arr[1][1]==target&&arr[2][2]==target){
+                    console.log("diagonal score")
+                    createCongrats()
+                    for(let i=1;i<10;i+=4){
+                        document.getElementById(i).style.backgroundColor='#ff7518';
+                    }
+                }
+                if(arr[0][2]==target&&arr[1][1]==target&&arr[2][0]==target){
+                    console.log("diagonal score")
+                    createCongrats()
+                    for(let i=3;i<8;i+=2){
+                        document.getElementById(i).style.backgroundColor='#ff7518';
+                    }
+                }
+                for(let k=0;k<arr.length;k++){
+                    if(arr[0][k]==target&&arr[1][k]==target&&arr[2][k]==target){
+                        createCongrats()
+                        console.log("score for: ",target,"in col: ",k)
+                        for(let element of document.getElementsByName(k)){
+                            element.style.backgroundColor='#ff7518'     
+                        }
+                    }
+                }
+                
+            }
+            del=()=>{
+                setTimeout(function(){
+                        for(let m=1;m<10;m++){
+                            document.getElementById(m).innerHTML=""
+                            document.getElementById("hey").innerHTML=""
+                            document.getElementById(m).style.backgroundColor="#8AAAE5";
+                            table=[["","",""],["","",""],["","",""]]
+                        }
+                    },delay)
+            }
+            createCongrats=()=>{
+                document.getElementById("hey").innerHTML="Thats a score!"
+                del()
+            }
+            
+            
+        </script>
+        <style>
+            :root{
+                --primary-color:#8AAAE5;
+                --secondary-color:#FFFFFF;
+                --orange:#ff7518;
+            }
+            @font-face {
+                font-family: "font";
+                src: url(SFNSDisplay-Medium\ copy.otf);
+                font-weight: 100;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                display: grid;
+                place-content: center;
+                min-height: 100dvh;
+                font-size: 16px;
+                font-family: "font";
+                font-weight: 200;
+            }
+            #hey {
+                text-align: center;
+                color: var(--orange);
+                margin: 1rem;
+            }
+            .main {
+                display: grid;
+                grid-template-rows:1fr 1fr 1fr;
+            }
+            .sub {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .sub>*{
+                margin: .15rem;
+            }
+            .block {
+                width: 4rem;
+                height: 4rem;
+                background-color: var(--primary-color);
+                display: grid;
+                place-content: center;
+                font-size: 4rem;
+                color: var(--secondary-color); 
+            }
+            
+        </style>
+        
+        <main>
+            <div class="main">
+                <div class="sub">
+                    <div class="0"><!-- classe are row numbers -->
+                        <div class="block" onclick="placeItems(id,name)" id="1" name="0"></div>
+                    </div>
+                    <div class="0">
+                        <div class="block" onclick="placeItems(id,name)" id="2" name="1"></div>
+                    </div>
+                    <div class="0">
+                        <div class="block" onclick="placeItems(id,name)" id="3" name="2"></div>
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="1">
+                        <div class="block" onclick="placeItems(id,name)" id="4" name="0"></div>
+                    </div>
+                    <div class="1">
+                        <div class="block" onclick="placeItems(id,name)" id="5" name="1"></div>
+                    </div>
+                    <div class="1">
+                        <div class="block" onclick="placeItems(id,name)" id="6" name="2"></div>
+                    </div>
+                </div>
+                <div class="sub">
+                    <div class="2">
+                        <div class="block" onclick="placeItems(id,name)" id="7" name="0"></div>
+                    </div>
+                    <div class="2">
+                        <div class="block" onclick="placeItems(id,name)" id="8" name="1"></div>
+                    </div>
+                    <div class="2">
+                        <div class="block" onclick="placeItems(id,name)" id="9" name="2"></div>
+                    </div>
+                </div>
+            </div>
+            <p id="hey"></p>
+        </main>
+    </body>
+</html>

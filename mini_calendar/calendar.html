@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>miniCalc.html</title>
+        <meta charset="utf-8">
+        <meta name="keywords" content="html,css,javascript">
+        <meta name="description" content="flappy-bird">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <style>
+            @font-face {
+                font-family: "font";
+                src: url("SFNSDisplay-Medium\ copy.otf");
+            }
+            *, *::before, *::after {
+                box-sizing: border-box;
+            }
+            * {
+                margin: 0;
+            }  
+            body {
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+            }
+            img, picture, video, canvas, svg {
+                display: block;
+                max-width: 100%;
+            }
+            input, button, textarea, select {
+                font: inherit;
+            }
+            p, h1, h2, h3, h4, h5, h6 {
+                overflow-wrap: break-word;
+            }
+            p {
+                text-wrap: pretty;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                text-wrap: balance;
+            }
+            #root, #__next {
+                isolation: isolate;
+            }
+            body {
+                font-family: "font";
+                height: 100dvh;
+                display: grid;
+                place-content: center;
+                background-color: #6864d8;
+            }
+            .mainSec{
+                background-color: #fff;
+                --padding_childs:1rem;
+                min-width: 25rem;
+                border-radius: 2rem;
+                -webkit-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.75);
+            }
+            .mainSec>*{
+                padding: var(--padding_childs);
+                text-align: center;
+            }
+            .mainHeading {
+                background-color: #ff4500;
+                color: #fff;
+                border-radius: 2rem 2rem 0 0;
+            }
+            .greyish {
+                color: #b7b7b7;
+                padding: 2rem;
+                font-size: 1.25rem;
+            }
+            .day {
+                font-size: 4em;
+                letter-spacing: 0.2rem;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        
+        <main>
+            <div class="mainSec">
+                <h2 class="mainHeading">March</h2>
+                <p id="dayOfWeek" class="greyish">Thursday</p>
+                <h1 class="day">16</h1>
+                <p id="year" class="greyish">2023</p>
+            </div>
+        </main>
+        <script>
+            const monthName=["January","February","March","April","May","June",
+            "July","August","September","October","November","December"]
+            const dayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+            const date=new Date();
+            document.querySelector(".mainHeading").innerHTML=monthName[date.getMonth()];
+                //zero indicates the first month of the year
+            document.querySelector("#dayOfWeek").innerHTML=dayName[date.getDay()]
+                //getDay() method returns number as day:0-6 ** sunday-saturday
+            document.querySelector(".day").innerHTML=date.getDate().toString();
+                //date.getDate() returns date of month
+            document.querySelector("#year").innerHTML=date.getFullYear().toString();
+            //better add the script to end of the html document.I had added it before the content  
+            //then javascript acts like the documantation of html doesnt exist
+            //code reads lines top to bottom
+        </script>
+    </body>
+</html>

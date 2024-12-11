@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="keywords" content="password">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <style>
+            @font-face{
+                font-family: "font";
+                src: url("SFNSDisplay-Medium\ copy.otf");
+            }
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            body{
+                font-family: "font";
+                height: 100dvh;
+                display: grid;
+                place-content: center;
+            }
+            .box>*{
+                margin: 1rem;
+            }
+            .box {
+                --width:16rem;
+                width: 16rem;
+            }
+            ul {
+                padding: 0 1rem 0 1rem;
+                font-size: 0.65rem;
+            }
+            li {
+                list-style: none;
+                padding: 0.05rem;
+                color: rgb(153, 153, 153);
+            }
+            i {
+                color: #d43168;
+            }
+            #pLabel {
+                font-size: 1rem;
+                color: #88a47d;
+                border: 2px solid #88a47d;
+                border-radius: 0.5rem;
+                position: absolute;
+                width: 14rem;
+                height: 2rem;
+            }
+            button {
+                position: relative;
+                left: 11rem;
+                border: 0;
+                border-radius: 5px;
+                background-color: #88a47d;
+                margin-top: 5px;
+                padding: 0.4rem;
+                color: #fff;
+                cursor: pointer;
+            }
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #88a47d;
+                font-size: 0.75rem;
+            }
+            #submitButton {
+                display: none;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 0.5rem;
+                border: 0;
+                border-radius: 0.3rem;
+                cursor: pointer;
+                background-color: #88a47d;
+                color: #fff;
+            }
+        </style>
+        <div class="box">
+            <form>
+                <label for="pLabel">Password</label>
+                <div class="content">
+                    <input id="pLabel" type="text" onkeyup="requirements()" id="pLabel">
+                    <button type="button" onclick="generator()">Create</button>
+                </div>
+            </form>
+            <ul>
+                <li><i id="ness1" class="bi bi-x"></i>
+                    at least one capital letter</li>
+                <li><i id="ness2" class="bi bi-x"></i>
+                    Have at least one number</li>
+                <li><i id="ness3" class="bi bi-x"></i>
+                    Be at least 8 characters</li>
+                <li><i id="ness4" class="bi bi-x"></i>
+                    Not contain more than 2 consecutive identical characters.</li>
+            </ul>
+            <input id="submitButton" type="submit">
+        </div>
+        
+        <script>
+            
+            generator=()=>{
+                //the genertaed password will be 10 characters
+                let pass="";
+                let randomNumIndex=Math.round(Math.random()*10)
+                let randomCapIndex=Math.round(Math.random()*10)
+                for(let i=0;i<=10;i++){
+                    if(i==randomNumIndex){
+                        pass+=String.fromCharCode(Math.round(48+Math.random()*10))
+                        continue
+                    }
+                    if(i==randomCapIndex){
+                        pass+=String.fromCharCode(Math.round(65+Math.random()*25))
+                        continue
+                    }
+                    let a =Math.random()
+                    pass+=String.fromCharCode(Math.round(97+25*a))
+                }
+                document.getElementById("pLabel").value=pass
+                requirements()
+            }
+            requirements=()=>{
+                let passText=document.getElementById("pLabel").value.toString();//num.toString() method turns verible to a string type
+                //at least one capital character
+                for(let i=0;i<passText.length;i++){
+                    if(65<=passText.charCodeAt(i)&&passText.charCodeAt(i)<=90){
+                        turnGreen("ness1");
+                        break//if the code see the break loop broke immedatelly 
+                    }
+                    turnRed("ness1");
+                }
+                //at least 8 characters
+                for(let j=0;j<passText.length;j++){
+                    if(48<=passText.charCodeAt(j)&&passText.charCodeAt(j)<=57){
+                        turnGreen("ness2")
+                        break
+                    }
+                    turnRed("ness2")
+                }
+                if(passText.length>=8){
+                    turnGreen("ness3")
+                }
+                if(passText.length<8&&document.getElementById("ness3").getAttribute("class")=="bi bi-check"){
+                    turnRed("ness3")
+                }
+                //more than 2 consecutive characters
+                if(passText.length>=3){
+                    for(let k=1;k<passText.length-1;k++){
+                        let back=passText[k-1]
+                        let front=passText[k+1]
+                        if(passText[k]==back&&passText[k]==front){
+                            turnRed("ness4");
+                            break
+                        }
+                        turnGreen("ness4");
+                    }
+                }
+                if(passText.length<3){
+                    turnRed("ness4")
+                }
+                checkSubm()
+            }
+            //changing statements value
+            turnGreen=(para)=>{
+                element=document.getElementById(para);
+                element.setAttribute("class","bi bi-check")//setAttribute method sets a new value to an attribut
+                element.style.color = "#88a47d";           //if attribute doesnt exist creates one 
+            }
+            turnRed=(para)=>{
+                element=document.getElementById(para);
+                element.setAttribute("class","bi bi-x")
+                element.style.color="#d43168";
+            }
+            checkSubm=()=>{
+                let count=0;
+                for(let l=1;l<=4;l++){
+                    text="ness"+l.toString();
+                    if(document.getElementById(text).getAttribute("class")=="bi bi-check"){
+                        count+=1;
+                    }
+                }
+                if(count==4){
+                    document.getElementById("submitButton").style.display="block"
+                }else{
+                    document.getElementById("submitButton").style.display="none"
+                }
+            }
+            
+        </script>
+    </body>
+</html>
